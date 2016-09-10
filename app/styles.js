@@ -3,7 +3,7 @@
  */
 const Styles = {
   app: {
-    width: "600",
+    width: "95%",
     margin: "0 auto"
   },
   list: {

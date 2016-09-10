@@ -3,14 +3,10 @@
  */
 import React from 'react';
 
-const About = (props) => {
-  let name = props.params.username;
-  let msg = '';
-  name == 'tejas' ? msg = 'Good to see you' : '';
+const About = () => {
   return (
     <div>
-      <h1 className={name == 'tejas' ? 'purple' : 'green'}>About Page for {props.params.username}</h1>
-      <p>{msg}</p>
+      <h1>About Page</h1>
     </div>
   )
 }

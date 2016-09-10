@@ -12,10 +12,7 @@ const listArray = [];
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: 'Banana',
-      data: listArray
-    }
+    this.state = { data: listArray }
   }
 
   handleAddItem = (e) => {
@@ -23,11 +20,8 @@ export default class App extends React.Component {
     if(this.refs.inputValue.value) {
       let newValue = this.refs.inputValue.value.trim();
 
-      this.setState({
-        name: newValue
-      });
-      listArray.push({id: uuid.v4(), value: newValue, isDone: false});
-      this.setState({data: listArray});
+      listArray.push({ id: uuid.v4(), value: newValue, isDone: false });
+      this.setState({ data: listArray });
       this.refs.inputValue.value = "";
     } else {
       alert("Oops, you forgot to enter something");
@@ -36,18 +30,17 @@ export default class App extends React.Component {
 
   render() {
     const data = this.state.data;
-    let username = this.state.name;
 
     return (
-      <div style={Styles.app}>
-        <h1>Hellloooooo, { this.state.name}!</h1>
+      <div style={ Styles.app }>
+        <h1 className="text-center">Tasker</h1>
         <form>
           <input type='text' defaultValue="" ref="inputValue"/>
-          <button type="submit" onClick={this.handleAddItem} className="button success expanded">Submit</button>
+          <button type="submit" onClick={ this.handleAddItem } className="button success expanded">Submit</button>
         </form>
         <br/>
-        <List list={data}/>
-        <Link to={'/about/' + username} activeClassName={"active"}>About</Link>
+        <List list={ data }/>
+        <Link to={ '/about/' } activeClassName={ "active" }>About</Link>
       </div>
     )
   }
@@ -55,4 +48,5 @@ export default class App extends React.Component {
 
 List.propTypes = {
   list: React.PropTypes.array.isRequired,
+
 }

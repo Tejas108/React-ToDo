@@ -39,19 +39,23 @@ class List extends React.Component {
   render() {
     let items = this.props.list;
     let status = this.state.status;
+    let itemCount = this.props.list.length;
+    let doneCount = this.props.list.filter(item => item.isDone).length;
+    let notDoneCount = this.props.list.filter(item => !item.isDone).length;
 
     switch (status) {
       case false:
-        items = items.filter(el => !el.isDone)
-        console.log(status);
+        items = items.filter(el => !el.isDone);
+        notDoneCount = items.length;
         break;
       case true:
-        items = items.filter(el => el.isDone)
+        items = items.filter(el => el.isDone);
         break;
       case 'all':
-        items = items.filter(el => el)
+        items = items.filter(el => el);
+        itemCount = items.length;
         break;
-    };
+    }
 
     let listItems = items.map((item, index) => {
       return (
@@ -70,6 +74,9 @@ class List extends React.Component {
           showCompleted = { this.handleShowCompleted }
           showIncomplete = { this.handleShowIncomplete }
           showAll = { this.handleShowAll }
+          count = { itemCount }
+          notDoneCount = { notDoneCount }
+          countDone = { doneCount }
         />
         <ul style={ Styles.list.parent }>
           { listItems }
