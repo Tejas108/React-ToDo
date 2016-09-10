@@ -3,20 +3,14 @@
  */
 import React from 'react';
 
-class FilterButtons extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="secondary small expanded button-group">
-        <a className="button" onClick={ this.props.showCompleted }>Completed&nbsp; ({ this.props.countDone })</a>
-        <a className="button" onClick={ this.props.showIncomplete }>Incomplete&nbsp; ({ this.props.notDoneCount })</a>
-        <a className="button" onClick={ this.props.showAll }>All&nbsp; ({ this.props.count })</a>
-      </div>
-    )
-  }
+const FilterButtons = (props) => {
+  return (
+    <div className="secondary small expanded button-group">
+      <a className="button" onClick={ props.showCompleted }>Completed&nbsp; ({ props.countDone })</a>
+      <a className="button" onClick={ props.showIncomplete }>Incomplete&nbsp; ({ props.notDoneCount })</a>
+      <a className="button" onClick={ props.showAll }>All&nbsp; ({ props.count })</a>
+    </div>
+  )
 }
 
 FilterButtons.propTypes = {
