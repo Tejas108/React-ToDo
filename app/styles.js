@@ -19,7 +19,7 @@ const Styles = {
       lineHeight: "2.3em",
       listStyleType: "none",
       padding: "10",
-      height: "62",
+      height: "64",
       border: "1px solid #d4d4d4",
       marginBottom: ".5em",
     }

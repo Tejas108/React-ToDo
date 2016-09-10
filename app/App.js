@@ -53,3 +53,6 @@ export default class App extends React.Component {
   }
 }
 
+List.propTypes = {
+  list: React.PropTypes.array.isRequired,
+}
