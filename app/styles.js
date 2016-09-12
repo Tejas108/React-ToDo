@@ -2,10 +2,6 @@
  * Created by Tejas on 9/1/16.
  */
 const Styles = {
-  app: {
-    width: "95%",
-    margin: "0 auto"
-  },
   list: {
     parent: {
       marginLeft: "0"

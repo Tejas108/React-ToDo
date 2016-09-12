@@ -3,34 +3,41 @@
  */
 import React from 'react';
 import List from './List';
+import EmptyList from './EmptyList';
 import {Link} from 'react-router';
 import uuid from 'uuid';
 import Styles from './styles';
 
 
-const listArray = [];
+let listArray = [];
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: listArray }
+    this.state = {data: listArray}
   }
 
   handleAddItem = (e) => {
     e.preventDefault();
     let newValue = this.refs.inputValue.value.trim();
 
-    listArray.push({ id: uuid.v4(), value: newValue, isDone: false });
-    this.setState({ data: listArray });
+    listArray.push({id: uuid.v4(), value: newValue, isDone: false});
+    this.setState({data: listArray});
     this.refs.inputValue.value = "";
   }
 
   handleDeleteAll = () => {
-    this.setState({ ata: [] });
+    listArray = [];
+    this.setState({data: listArray});
   }
 
   handleDeleteDone = () => {
-    const items = this.state.data.filter(el => !el.isDone);
-    this.setState({ data: items });
+    var i;
+    for (i = listArray.length - 1; i >= 0; i -= 1) {
+      if (listArray[i].isDone === true) {
+        listArray.splice(i, 1);
+      }
+    }
+    this.setState({data: listArray});
   }
 
   render() {
@@ -40,15 +47,17 @@ export default class App extends React.Component {
       <div style={ Styles.app }>
         <h1 className="text-center">Tasker</h1>
         <form onSubmit={ this.handleAddItem }>
-          <input type="text" placeholder="Enter Task" ref="inputValue" required />
-          <div className="button-group expanded">
-            <button type="submit" className="button success expanded">Add New Task</button>
-            <button className="button warning" onClick={ this.handleDeleteDone }>Delete Completed Tasks</button>
-            <button className="button alert" onClick={ this.handleDeleteAll }>Delete All Tasks</button>
+          <input type="text" placeholder="Enter Task" ref="inputValue" required/>
+          <div className="button-group stacked-for-small">
+            <button type="submit" className="button success">Add New Task</button>
+            { this.state.data.length ?
+              <button className="button warning" onClick={ this.handleDeleteDone }>Delete Completed
+                Tasks</button> : ''  }
+            { this.state.data.length ?
+              <button className="button alert" onClick={ this.handleDeleteAll }>Delete All Tasks</button> : '' }
           </div>
         </form>
-        <br/>
-        <List list={ data }/>
+        { this.state.data.length ? <List list={ data }/> : <EmptyList /> }
         <Link to={ '/about/' } activeClassName={ "active" }>About</Link>
       </div>
     )
@@ -56,6 +65,5 @@ export default class App extends React.Component {
 }
 
 List.propTypes = {
-  list: React.PropTypes.array.isRequired,
-
+  list: React.PropTypes.array.isRequired
 }
