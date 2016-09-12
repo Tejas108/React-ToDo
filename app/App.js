@@ -37,7 +37,8 @@ export default class App extends React.Component {
         listArray.splice(i, 1);
       }
     }
-    this.setState({data: listArray});
+    this.setState({ data: listArray });
+    return this.state.data
   }
 
   render() {
