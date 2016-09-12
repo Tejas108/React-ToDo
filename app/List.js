@@ -12,7 +12,6 @@ class List extends React.Component {
   }
 
   handleRemoveItem = (e, index) => {
-    console.log("clicked index: " + index);
     let updatedArray = this.props.list.splice(index, 1);
     this.setState({data: updatedArray});
   }
@@ -33,7 +32,6 @@ class List extends React.Component {
 
   handleShowIncomplete = () => {
     this.setState({ status: false });
-    console.log('handleShowIncomplete called');
   }
 
   render() {

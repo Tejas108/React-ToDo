@@ -17,15 +17,20 @@ export default class App extends React.Component {
 
   handleAddItem = (e) => {
     e.preventDefault();
-    if(this.refs.inputValue.value) {
-      let newValue = this.refs.inputValue.value.trim();
+    let newValue = this.refs.inputValue.value.trim();
 
-      listArray.push({ id: uuid.v4(), value: newValue, isDone: false });
-      this.setState({ data: listArray });
-      this.refs.inputValue.value = "";
-    } else {
-      alert("Oops, you forgot to enter something");
-    }
+    listArray.push({ id: uuid.v4(), value: newValue, isDone: false });
+    this.setState({ data: listArray });
+    this.refs.inputValue.value = "";
+  }
+
+  handleDeleteAll = () => {
+    this.setState({ ata: [] });
+  }
+
+  handleDeleteDone = () => {
+    const items = this.state.data.filter(el => !el.isDone);
+    this.setState({ data: items });
   }
 
   render() {
@@ -34,9 +39,13 @@ export default class App extends React.Component {
     return (
       <div style={ Styles.app }>
         <h1 className="text-center">Tasker</h1>
-        <form>
-          <input type='text' defaultValue="" ref="inputValue"/>
-          <button type="submit" onClick={ this.handleAddItem } className="button success expanded">Submit</button>
+        <form onSubmit={ this.handleAddItem }>
+          <input type="text" placeholder="Enter Task" ref="inputValue" required />
+          <div className="button-group expanded">
+            <button type="submit" className="button success expanded">Add New Task</button>
+            <button className="button warning" onClick={ this.handleDeleteDone }>Delete Completed Tasks</button>
+            <button className="button alert" onClick={ this.handleDeleteAll }>Delete All Tasks</button>
+          </div>
         </form>
         <br/>
         <List list={ data }/>
