@@ -37,20 +37,30 @@ export default class App extends React.Component {
         listArray.splice(i, 1);
       }
     }
-    this.setState({ data: listArray });
+    this.setState({data: listArray});
     return this.state.data
   }
 
-  render() {
-    const data = this.state.data;
+  // updateList = (newList) => {
+  //   this.setState({
+  //     data: newList
+  //   });
+  // }
 
+  handleRemoveListItem = (index) => {
+    let newList = listArray;
+    listArray = newList.slice(0,index).concat(newList.slice(index + 1));
+    this.setState({data: listArray})
+  }
+
+  render() {
     return (
       <div style={ Styles.app }>
         <h1 className="text-center">Tasker</h1>
-        <form onSubmit={ this.handleAddItem }>
+        <form>
           <input type="text" placeholder="Enter Task" ref="inputValue" required/>
           <div className="button-group stacked-for-small">
-            <button type="submit" className="button success">Add New Task</button>
+            <button type="submit" className="button success" onClick={ this.handleAddItem }>Add New Task</button>
             { this.state.data.length ?
               <button className="button warning" onClick={ this.handleDeleteDone }>Delete Completed
                 Tasks</button> : ''  }
@@ -58,7 +68,7 @@ export default class App extends React.Component {
               <button className="button alert" onClick={ this.handleDeleteAll }>Delete All Tasks</button> : '' }
           </div>
         </form>
-        { this.state.data.length ? <List list={ data }/> : <EmptyList /> }
+        { this.state.data.length ? <List list={ this.state.data } delete={this.handleRemoveListItem}/> : <EmptyList /> }
         <Link to={ '/about/' } activeClassName={ "active" }>About</Link>
       </div>
     )

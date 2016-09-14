@@ -3,10 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>React Play</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css">
 </head>
 <body>
 <style>
+  button:focus {outline:0;}
+
+  @media (max-width: 500px) {
+    #app {
+      margin: 0 15px;
+    }
+  }
+  }
   .active {
     color: red
   }
@@ -21,6 +30,12 @@
   }
   .notDone {
     background: #e8e8e8;
+  }
+  input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 10px;
   }
 </style>
   <div id="app" class="row"></div>

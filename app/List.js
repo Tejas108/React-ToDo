@@ -3,17 +3,13 @@
  */
 import React from 'react';
 import Styles from './styles';
+import FlipMove from 'react-flip-move';
 import FilterButtons from './FilterButtons';
 
 class List extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { status: '' }
-  }
-
-  handleRemoveItem = (e, index) => {
-    let updatedArray = this.props.list.splice(index, 1);
-    this.setState({data: updatedArray});
+    this.state = {status: ''}
   }
 
   handleToggleComplete = (index) => {
@@ -23,16 +19,20 @@ class List extends React.Component {
   }
 
   handleShowCompleted = () => {
-    this.setState({ status: true });
+    this.setState({status: true});
   }
 
   handleShowAll = () => {
-    this.setState({ status: 'all' });
+    this.setState({status: 'all'});
   }
 
   handleShowIncomplete = () => {
-    this.setState({ status: false });
+    this.setState({status: false});
   }
+
+  handleDelete = (index) => {
+  this.props.delete(index);
+}
 
   render() {
     let items = this.props.list;
@@ -59,25 +59,26 @@ class List extends React.Component {
       return (
         <li style={ Styles.list.item} className={ items[index].isDone ? "isDone" : "notDone" } key={ index }>
           <form style={ Styles.list.form }>
-            <input type="checkbox" onChange={ e=>this.handleToggleComplete(index) } checked={items[index].isDone ? "checked" : ""}/>
+            <input type="checkbox" onChange={ e=>this.handleToggleComplete(index) }
+                   checked={items[index].isDone ? "checked" : ""}/>
           </form>
           <span className="float-left">{item.value}</span>
-          <button className="button alert float-right" onClick={ e=>this.handleRemoveItem(e, index) }>X</button>
+          <button className="button alert float-right" onClick={e=>this.handleDelete(index)}>X</button>
         </li>
       )
     }, this);
     return (
-      <div>
+      <div className="row">
         <FilterButtons
-          showCompleted = { this.handleShowCompleted }
-          showIncomplete = { this.handleShowIncomplete }
-          showAll = { this.handleShowAll }
-          count = { itemCount }
-          notDoneCount = { notDoneCount }
-          countDone = { doneCount }
+          showCompleted={ this.handleShowCompleted }
+          showIncomplete={ this.handleShowIncomplete }
+          showAll={ this.handleShowAll }
+          count={ itemCount }
+          notDoneCount={ notDoneCount }
+          countDone={ doneCount }
         />
         <ul style={ Styles.list.parent }>
-          { listItems }
+          <FlipMove enterAnimation="fade" leaveAnimation="fade">{ listItems }</FlipMove>
         </ul>
       </div>
     )
