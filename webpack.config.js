@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: __dirname + '/app/index.html',
+  template: __dirname + '/index.html',
   filename: 'index.html',
   inject: 'body'
 });
@@ -11,7 +11,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/dev-server',
-    './app/index.js'
+    './src/index.js'
   ],
   output: {
     path: __dirname + '/dist',

@@ -2,7 +2,7 @@
  * Created by Tejas on 8/25/16.
  */
 import React from 'react';
-import Styles from './styles';
+import Styles from '../styles';
 import FlipMove from 'react-flip-move';
 import FilterButtons from './FilterButtons';
 
@@ -30,8 +30,8 @@ class List extends React.Component {
     this.setState({status: false});
   }
 
-  handleDelete = (index) => {
-  this.props.delete(index);
+  handleDelete = (id) => {
+  this.props.delete(id);
 }
 
   render() {
@@ -57,17 +57,18 @@ class List extends React.Component {
 
     let listItems = items.map((item, index) => {
       return (
-        <li style={ Styles.list.item} className={ items[index].isDone ? "isDone" : "notDone" } key={ index }>
+        <li style={ Styles.list.item} className={ items[index].isDone ? "isDone" : "notDone" } key={ item.id }>
           <form style={ Styles.list.form }>
             <input type="checkbox" onChange={ e=>this.handleToggleComplete(index) }
                    checked={items[index].isDone ? "checked" : ""}/>
           </form>
           <span className="float-left">{item.value}</span>
-          <button className="button alert float-right" onClick={e=>this.handleDelete(index)}>X</button>
+          <button className="button alert float-right" onClick={e=>this.handleDelete(item.id)}>X</button>
         </li>
       )
     }, this);
     return (
+      <FlipMove enterAnimation="fade" leaveAnimation="fade">
       <div className="row">
         <FilterButtons
           showCompleted={ this.handleShowCompleted }
@@ -81,6 +82,7 @@ class List extends React.Component {
           <FlipMove enterAnimation="fade" leaveAnimation="fade">{ listItems }</FlipMove>
         </ul>
       </div>
+      </FlipMove>
     )
   }
 

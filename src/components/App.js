@@ -6,8 +6,7 @@ import List from './List';
 import EmptyList from './EmptyList';
 import {Link} from 'react-router';
 import uuid from 'uuid';
-import Styles from './styles';
-
+import Styles from '../styles';
 
 let listArray = [];
 export default class App extends React.Component {
@@ -16,41 +15,44 @@ export default class App extends React.Component {
     this.state = {data: listArray}
   }
 
+  updateData = (data) => {
+    this.setState({
+      data
+    })
+  }
+
   handleAddItem = (e) => {
     e.preventDefault();
     let newValue = this.refs.inputValue.value.trim();
 
     listArray.push({id: uuid.v4(), value: newValue, isDone: false});
-    this.setState({data: listArray});
+    this.updateData(listArray);
     this.refs.inputValue.value = "";
   }
 
   handleDeleteAll = () => {
     listArray = [];
-    this.setState({data: listArray});
+    this.updateData(listArray);
   }
 
   handleDeleteDone = () => {
-    var i;
+    let i;
     for (i = listArray.length - 1; i >= 0; i -= 1) {
       if (listArray[i].isDone === true) {
         listArray.splice(i, 1);
       }
     }
-    this.setState({data: listArray});
-    return this.state.data
+    this.updateData(listArray);
   }
 
-  // updateList = (newList) => {
-  //   this.setState({
-  //     data: newList
-  //   });
-  // }
-
-  handleRemoveListItem = (index) => {
-    let newList = listArray;
-    listArray = newList.slice(0,index).concat(newList.slice(index + 1));
-    this.setState({data: listArray})
+  handleRemoveListItem = (id) => {
+    let i;
+    for (i = listArray.length - 1; i >= 0; i -= 1) {
+      if (listArray[i].id === id) {
+        listArray.splice(i, 1);
+      }
+    }
+    this.updateData(listArray);
   }
 
   render() {
@@ -69,12 +71,13 @@ export default class App extends React.Component {
           </div>
         </form>
         { this.state.data.length ? <List list={ this.state.data } delete={this.handleRemoveListItem}/> : <EmptyList /> }
-        <Link to={ '/about/' } activeClassName={ "active" }>About</Link>
       </div>
     )
   }
 }
 
 List.propTypes = {
-  list: React.PropTypes.array.isRequired
+  list: React.PropTypes.array.isRequired,
+  delete: React.PropTypes.func,
+  activeClassName: React.PropTypes.string
 }
