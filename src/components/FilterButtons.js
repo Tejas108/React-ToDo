@@ -6,9 +6,9 @@ import React from 'react';
 const FilterButtons = (props) => {
   return (
     <div className="secondary small expanded button-group">
-      <a className="button" onClick={ props.showCompleted }>Complete { props.countDone }</a>
-      <a className="button" onClick={ props.showIncomplete }>Incomplete { props.notDoneCount }</a>
-      <a className="button" onClick={ props.showAll }>All&nbsp; { props.count }</a>
+      <button className="button" onClick={ props.showAll }>All&nbsp; { props.count }</button>
+      <button className="button" onClick={ props.showCompleted } disabled={props.countDone == 0 ? true : false}>Completed { props.countDone }</button>
+      <button className="button" onClick={ props.showIncomplete } disabled={props.notDoneCount == 0 ? true : false}>Incomplete { props.notDoneCount }</button>
     </div>
   )
 }
