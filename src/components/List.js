@@ -2,6 +2,7 @@
  * Created by Tejas on 8/25/16.
  */
 import React from 'react';
+import EmptyFilter from './EmptyFilter';
 import Styles from '../styles';
 import FlipMove from 'react-flip-move';
 import FilterButtons from './FilterButtons';
@@ -68,21 +69,19 @@ class List extends React.Component {
       )
     }, this);
     return (
-      <FlipMove enterAnimation="fade" leaveAnimation="fade">
-      <div className="row">
-        <FilterButtons
-          showCompleted={ this.handleShowCompleted }
-          showIncomplete={ this.handleShowIncomplete }
-          showAll={ this.handleShowAll }
-          count={ itemCount }
-          notDoneCount={ notDoneCount }
-          countDone={ doneCount }
-        />
-        <ul style={ Styles.list.parent }>
-          <FlipMove enterAnimation="fade" leaveAnimation="fade">{ listItems }</FlipMove>
-        </ul>
-      </div>
-      </FlipMove>
+        <div className="row">
+          <FilterButtons
+            showCompleted={ this.handleShowCompleted }
+            showIncomplete={ this.handleShowIncomplete }
+            showAll={ this.handleShowAll }
+            count={ itemCount }
+            notDoneCount={ notDoneCount }
+            countDone={ doneCount }
+          />
+          <ul style={ Styles.list.parent }>
+            <FlipMove enterAnimation="fade" leaveAnimation="fade">{ listItems }</FlipMove>
+          </ul>
+        </div>
     )
   }
 

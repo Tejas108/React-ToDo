@@ -12,7 +12,9 @@ let listArray = [];
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {data: listArray}
+    this.state = {
+      data: listArray
+    }
   }
 
   updateData = (data) => {
@@ -62,7 +64,7 @@ export default class App extends React.Component {
         <form>
           <input type="text" placeholder="Enter Task" ref="inputValue" required/>
           <div className="button-group stacked-for-small">
-            <button type="submit" className="button success" onClick={ this.handleAddItem }>Add New Task</button>
+            <button className="button success" onClick={ this.handleAddItem }>Add New Task</button>
             { this.state.data.length ?
               <button className="button warning" onClick={ this.handleDeleteDone }>Delete Completed
                 Tasks</button> : ''  }
@@ -78,6 +80,6 @@ export default class App extends React.Component {
 
 List.propTypes = {
   list: React.PropTypes.array.isRequired,
-  delete: React.PropTypes.func,
+  delete: React.PropTypes.func.isRequired,
   activeClassName: React.PropTypes.string
 }
