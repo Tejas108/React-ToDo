@@ -9,12 +9,34 @@ import uuid from 'uuid';
 import Styles from '../styles';
 
 let listArray = [];
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: listArray
+      data: []
     }
+
+  }
+
+  componentDidMount = () => {
+    const request = axios
+      .get("./tasks.json")
+      .then(res => {
+        listArray = res.data.tasks;
+        this.updateData(listArray)
+      })
+      .catch(res => {
+        if (res instanceof Error) {
+          console.log(res.message);
+        } else {
+          console.log(res.data);
+        }
+      });
+  }
+
+  componentWillUnmount = () => {
+    request.abort();
   }
 
   updateData = (data) => {
@@ -22,6 +44,7 @@ export default class App extends React.Component {
       data
     })
   }
+
 
   handleAddItem = (e) => {
     e.preventDefault();

@@ -32,8 +32,8 @@ class List extends React.Component {
   }
 
   handleDelete = (id) => {
-  this.props.delete(id);
-}
+    this.props.delete(id);
+  }
 
   render() {
     let items = this.props.list;
@@ -69,19 +69,19 @@ class List extends React.Component {
       )
     }, this);
     return (
-        <div className="row">
-          <FilterButtons
-            showCompleted={ this.handleShowCompleted }
-            showIncomplete={ this.handleShowIncomplete }
-            showAll={ this.handleShowAll }
-            count={ itemCount }
-            notDoneCount={ notDoneCount }
-            countDone={ doneCount }
-          />
-          <ul style={ Styles.list.parent }>
-            <FlipMove enterAnimation="fade" leaveAnimation="fade">{ listItems }</FlipMove>
-          </ul>
-        </div>
+      <div className="row">
+        <FilterButtons
+          showCompleted={ this.handleShowCompleted }
+          showIncomplete={ this.handleShowIncomplete }
+          showAll={ this.handleShowAll }
+          count={ itemCount }
+          notDoneCount={ notDoneCount }
+          countDone={ doneCount }
+        />
+        <ul style={ Styles.list.parent }>
+          <FlipMove enterAnimation="fade" leaveAnimation="fade">{ listItems }</FlipMove>
+        </ul>
+      </div>
     )
   }
 
@@ -89,6 +89,5 @@ class List extends React.Component {
 List.propTypes = {
   list: React.PropTypes.array
 }
-
 
 export default List;
