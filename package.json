@@ -1,5 +1,5 @@
 {
-  "name": "gh-battle",
+  "name": "Tasker",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "production": "webpack -p"
   },
-  "author": "Tyler McGinnis <tylermcginnis33@gmail.com> (http://tylermcginnis.com)",
+  "author": "Tejas Monteverdi <tejas.monteverdi@gmail.com> (http://rainworldinteractive.com)",
   "license": "ISC",
   "dependencies": {
     "react": "^0.14.8",

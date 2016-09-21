@@ -16,12 +16,11 @@ export default class App extends React.Component {
     this.state = {
       data: []
     }
-
   }
 
   componentDidMount = () => {
     const request = axios
-      .get("./tasks.json")
+      .get("tasks.json")
       .then(res => {
         listArray = res.data.tasks;
         this.updateData(listArray)
@@ -39,18 +38,29 @@ export default class App extends React.Component {
     request.abort();
   }
 
-  updateData = (data) => {
-    this.setState({
-      data
+    updateData = (data) => {
+      this.setState({
+        data
+      });
+    }
+
+    handleAddItem = (e) => {
+      e.preventDefault();
+      let newValue = this.refs.inputValue.value.trim();
+      let itemId = uuid.v4();
+      listArray.push({id: itemId, value: newValue, isDone: false});
+
+      axios.post('savedata.php', {
+      id: 232323,
+      value: "lalala",
+      isDone: false
     })
-  }
-
-
-  handleAddItem = (e) => {
-    e.preventDefault();
-    let newValue = this.refs.inputValue.value.trim();
-
-    listArray.push({id: uuid.v4(), value: newValue, isDone: false});
+      .then(function (response) {
+      console.log(response);
+    })
+      .catch(function (response) {
+        console.log(response);
+      });
     this.updateData(listArray);
     this.refs.inputValue.value = "";
   }

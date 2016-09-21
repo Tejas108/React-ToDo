@@ -15,6 +15,7 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/dist',
+    publicPath: "http://localhost:8080/dist/",
     filename: "index_bundle.js"
   },
   scripts: {
@@ -29,5 +30,11 @@ module.exports = {
   devServer: {
     hot: true,
     contentBase: './',
-  }
+    proxy: [
+      {
+        path: /./,
+        target: "http://tasker"
+      }
+    ]
+  },
 };
