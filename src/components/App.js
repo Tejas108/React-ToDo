@@ -22,7 +22,7 @@ export default class App extends React.Component {
     const request = axios
       .get("tasks.json")
       .then(res => {
-        listArray = res.data.tasks;
+        listArray = res.data;
         this.updateData(listArray)
       })
       .catch(res => {
@@ -51,15 +51,15 @@ export default class App extends React.Component {
       listArray.push({id: itemId, value: newValue, isDone: false});
 
       axios.post('savedata.php', {
-      id: 232323,
-      value: "lalala",
-      isDone: false
-    })
-      .then(function (response) {
-      console.log(response);
-    })
-      .catch(function (response) {
-        console.log(response);
+        id: itemId,
+        value: newValue,
+        isDone: false
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (err) {
+        console.log(err);
       });
     this.updateData(listArray);
     this.refs.inputValue.value = "";
@@ -87,6 +87,15 @@ export default class App extends React.Component {
         listArray.splice(i, 1);
       }
     }
+    axios.post('deletedata.php',
+      id
+    )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
     this.updateData(listArray);
   }
 
