@@ -50,10 +50,11 @@ export default class App extends React.Component {
       let itemId = uuid.v4();
       listArray.push({id: itemId, value: newValue, isDone: false});
 
-      axios.post('savedata.php', {
+      axios.post('actions.php', {
         id: itemId,
         value: newValue,
-        isDone: false
+        isDone: false,
+        action: 'save'
       })
         .then(function (response) {
           console.log(response);
@@ -67,6 +68,9 @@ export default class App extends React.Component {
 
   handleDeleteAll = () => {
     listArray = [];
+    axios.post('actions.php', {
+      action: 'clearall'
+    })
     this.updateData(listArray);
   }
 
@@ -87,9 +91,10 @@ export default class App extends React.Component {
         listArray.splice(i, 1);
       }
     }
-    axios.post('deletedata.php',
-      id
-    )
+    axios.post('actions.php', {
+      id: id,
+      action: 'delete'
+    })
       .then(function (response) {
         console.log(response);
       })
