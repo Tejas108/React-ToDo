@@ -38,40 +38,42 @@ export default class App extends React.Component {
     request.abort();
   }
 
-    updateData = (data) => {
-      this.setState({
-        data
-      });
-    }
+  updateData = (data) => {
+    this.setState({
+      data
+    });
+  }
 
-    handleAddItem = (e) => {
-      e.preventDefault();
-      let newValue = this.refs.inputValue.value.trim();
-      let itemId = uuid.v4();
-      listArray.push({id: itemId, value: newValue, isDone: false});
-
-      axios.post('actions.php', {
-        id: itemId,
-        value: newValue,
-        isDone: false,
-        action: 'save'
+  saveJson = () => {
+    console.log('data: ' + this.state.data)
+    axios.post('write.php', {
+      data: this.state.data
+    })
+      .then(function (response) {
+        console.log(response);
       })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (err) {
+      .catch(function (err) {
         console.log(err);
       });
+  }
+
+  handleAddItem = (e) => {
+    e.preventDefault();
+    let newValue = this.refs.inputValue.value.trim();
+    let itemId = uuid.v4();
+    listArray.push({id: itemId, value: newValue, isDone: false});
     this.updateData(listArray);
+    this.saveJson();
+
     this.refs.inputValue.value = "";
   }
 
   handleDeleteAll = () => {
     listArray = [];
-    axios.post('actions.php', {
-      action: 'clearall'
-    })
     this.updateData(listArray);
+    axios.post('write.php', {
+      data: []
+    })
   }
 
   handleDeleteDone = () => {
@@ -82,6 +84,7 @@ export default class App extends React.Component {
       }
     }
     this.updateData(listArray);
+    this.saveJson();
   }
 
   handleRemoveListItem = (id) => {
@@ -91,17 +94,9 @@ export default class App extends React.Component {
         listArray.splice(i, 1);
       }
     }
-    axios.post('actions.php', {
-      id: id,
-      action: 'delete'
-    })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
     this.updateData(listArray);
+    this.saveJson();
+
   }
 
   render() {
