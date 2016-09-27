@@ -5,9 +5,23 @@
     <title>React Tasker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <style>
+    body {
+        color: #101010;
+        font-family: 'Roboto', sans-serif;
+    }
+    .row {
+        max-width: 40em;
+    }
+    h1 {
+        margin-top: 20px;
+        font-family: 'Raleway', sans-serif;
+    }
     button:focus {
         outline: 0;
     }
@@ -18,7 +32,6 @@
         }
     }
 
-    }
     .active {
         color: red
     }
@@ -45,8 +58,15 @@
         margin-right: 10px;
         margin-top: 10px;
     }
+    form > .button-group {
+        text-align: center;
+    }
+    .button-group .button:disabled {
+        color: #000;
+        opacity: 0.55;
+    }
 </style>
 <div id="app" class="row"></div>
 <script type="text/javascript" src="http://localhost:8080/dist/index_bundle.js"></script>
-</body>
+<script type="text/javascript" src="http://localhost:8080/dist/index_bundle.js"></script></body>
 </html>

@@ -47,9 +47,6 @@ export default class App extends React.Component {
     axios.post('write.php', {
       data: this.state.data
     })
-      .then(function (response) {
-        console.log(response);
-      })
       .catch(function (err) {
         console.log(err);
       });
