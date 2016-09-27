@@ -10,7 +10,9 @@ import FilterButtons from './FilterButtons';
 class List extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {status: ''}
+    this.state = {
+      status: ''
+    }
   }
 
   handleToggleComplete = (index) => {
@@ -79,7 +81,7 @@ class List extends React.Component {
           countDone={ doneCount }
         />
         <ul style={ Styles.list.parent }>
-          <FlipMove enterAnimation="fade" leaveAnimation="fade">{ listItems }</FlipMove>
+          <FlipMove enterAnimation="fade" leaveAnimation="accordianHorizontal">{ listItems }</FlipMove>
         </ul>
       </div>
     )
@@ -87,7 +89,7 @@ class List extends React.Component {
 
 }
 List.propTypes = {
-  list: React.PropTypes.array
+  list: React.PropTypes.array.required
 }
 
 export default List;

@@ -4,6 +4,7 @@
 import React from 'react';
 import List from './List';
 import EmptyList from './EmptyList';
+import Alert from './Alert';
 import {Link} from 'react-router';
 import uuid from 'uuid';
 import Styles from '../styles';
@@ -14,7 +15,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      isModalOpen: false,
+      alertMsg: ''
     }
   }
 
@@ -34,10 +37,6 @@ export default class App extends React.Component {
       });
   }
 
-  componentWillUnmount = () => {
-    request.abort();
-  }
-
   updateData = (data) => {
     this.setState({
       data
@@ -45,7 +44,6 @@ export default class App extends React.Component {
   }
 
   saveJson = () => {
-    console.log('data: ' + this.state.data)
     axios.post('write.php', {
       data: this.state.data
     })
@@ -57,15 +55,32 @@ export default class App extends React.Component {
       });
   }
 
+  handleAlert = (val) => {
+    let msg = '';
+    if(val) {
+      msg = "Oops, you forgot to enter a task!";
+    }
+    this.setState({
+      isModalOpen: val,
+      alertMsg: msg
+    });
+  }
+
   handleAddItem = (e) => {
     e.preventDefault();
     let newValue = this.refs.inputValue.value.trim();
-    let itemId = uuid.v4();
-    listArray.push({id: itemId, value: newValue, isDone: false});
-    this.updateData(listArray);
-    this.saveJson();
+    if(newValue === '' || undefined){
+      this.handleAlert(true);
+    }else {
+      this.handleAlert(false);
+      let itemId = uuid.v4();
+      listArray.push({id: itemId, value: newValue, isDone: false});
+      this.updateData(listArray);
+      this.saveJson();
 
-    this.refs.inputValue.value = "";
+      this.refs.inputValue.value = "";
+    }
+
   }
 
   handleDeleteAll = () => {
@@ -73,7 +88,7 @@ export default class App extends React.Component {
     this.updateData(listArray);
     axios.post('write.php', {
       data: []
-    })
+    });
   }
 
   handleDeleteDone = () => {
@@ -99,9 +114,17 @@ export default class App extends React.Component {
 
   }
 
+  handleAlertClose = () => {
+    this.setState({
+      isModalOpen: false,
+      alertMsg: ''
+    })
+  }
+
   render() {
     return (
-      <div style={ Styles.app }>
+      <div style={ Styles } className="small-12 columns">
+        <Alert show={this.state.isModalOpen} msg={this.state.alertMsg} closeAlert={this.handleAlertClose}/>
         <h1 className="text-center">Tasker</h1>
         <form>
           <input type="text" placeholder="Enter Task" ref="inputValue" required/>
