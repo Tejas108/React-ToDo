@@ -9,7 +9,7 @@ const Alert = (props) => {
   return (
     <div className={props.show ? 'data-alert ' : 'data-alert hide'} style={Styles.alertWarning}>
       {props.msg}
-      <button tabindex="0" aria-label="Close Alert" style={Styles.alertClose} onClick={props.closeAlert}>×</button>
+      <button tabIndex="0" aria-label="Close Alert" style={Styles.alertClose} onClick={props.closeAlert}>×</button>
     </div>
   )
 
